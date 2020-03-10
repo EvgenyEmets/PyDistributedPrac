@@ -1,9 +1,23 @@
 from tkinter import *
+import subprocess
 
 s = "echo"
 s1 = "echo"
+
 def fun(*arg):
-	global s, s1
+	global s, s1, E, F
+	t = E.get()
+	arg = s1.split()
+	arg.append(t)
+	proc = subprocess.Popen(arg, stdout=subprocess.PIPE)
+	txt = proc.communicate()
+	for i in range(len(txt)-1):
+		print(txt[i].decode("utf-8"))
+		F.rowconfigure(6 + i, weight = 1)
+		L_er = Label(master = F, text = "\n")
+		L_er.grid(sticky = "EW", column = 1, row = 6 + i, columnspan = 3)
+		L = Label(master = F, text = txt[i].decode("utf-8"))
+		L.grid(sticky = "EW", column = 1, row = 6 + i, columnspan = 3)
 	s1 = s
 	L_main = Label(master = F, text = s)
 	L_main.grid(sticky = "NEWS", column = 0, row = 0)
@@ -11,31 +25,51 @@ def fun(*arg):
 
 def fun1(*arg):
 	global s1
-	s1 += " -n"
+	n = s1.find(" -n")
+	if n != -1:
+		s1 = s1[:n] + s1[n+3:]
+	else:
+		s1 += " -n"
 	L_main = Label(master = F, text = s1)
 	L_main.grid(sticky = "NEWS", column = 0, row = 0)
 
 def fun2(*arg):
 	global s1
-	s1 += " -e"
+	n = s1.find(" -e")
+	if n != -1:
+		s1 = s1[:n] + s1[n+3:]
+	else:
+		s1 += " -e"
 	L_main = Label(master = F, text = s1)
 	L_main.grid(sticky = "NEWS", column = 0, row = 0)
 
 def fun3(*arg):
 	global s1
-	s1 += " -E"
+	n = s1.find(" -E")
+	if n != -1:
+		s1 = s1[:n] + s1[n+3:]
+	else:
+		s1 += " -E"
 	L_main = Label(master = F, text = s1)
 	L_main.grid(sticky = "NEWS", column = 0, row = 0)
 
 def fun4(*arg):
 	global s1
-	s1 += " --help"
+	n = s1.find(" --help")
+	if n != -1:
+		s1 = s1[:n] + s1[n+7:]
+	else:
+		s1 += " --help"
 	L_main = Label(master = F, text = s1)
 	L_main.grid(sticky = "NEWS", column = 0, row = 0)
 
 def fun5(*arg):
 	global s1
-	s1 += " --version"
+	n = s1.find(" --version")
+	if n != -1:
+		s1 = s1[:n] + s1[n+10:]
+	else:
+		s1 += " --version"
 	L_main = Label(master = F, text = s1)
 	L_main.grid(sticky = "NEWS", column = 0, row = 0)
 
